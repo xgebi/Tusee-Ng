@@ -1,0 +1,21 @@
+<main class="central-form">
+  <form (submit)="formSubmitted($event)" [formGroup]="registrationForm">
+
+    <section>
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email" />
+    </section>
+
+    <section>
+      <label for="password">Password:</label>
+      <input id="password" formControlName="password" type="password" />
+    </section>
+
+    <section>
+      <label for="displayName">Display name:</label>
+      <input id="displayName" formControlName="displayName" />
+    </section>
+
+    <button (click)="formSubmitted($event)">Login</button>
+  </form>
+</main>
