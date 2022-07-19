@@ -7,13 +7,27 @@ import { HomeComponent } from './pages/home/home.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NavigationComponent } from './components/shared/navigation/navigation.component';
+import { TaskListComponent } from './pages/task-list/task-list.component';
+import { TaskDetailComponent } from './pages/task-detail/task-detail.component';
+import { BoardsComponent } from './pages/boards/boards.component';
+import { BoardListComponent } from './pages/boards/board-list/board-list.component';
+import { BoardDetailComponent } from './pages/boards/board-detail/board-detail.component';
+import { BoardSettingsComponent } from './pages/boards/board-settings/board-settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    NavigationComponent,
+    TaskListComponent,
+    TaskDetailComponent,
+    BoardsComponent,
+    BoardListComponent,
+    BoardDetailComponent,
+    BoardSettingsComponent
   ],
   imports: [
     BrowserModule,

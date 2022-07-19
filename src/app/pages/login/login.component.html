@@ -1,1 +1,16 @@
-<p>login works!</p>
+<main class="central-form">
+  <form (submit)="formSubmitted($event)" [formGroup]="loginForm">
+
+    <section>
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email" />
+    </section>
+
+    <section>
+      <label for="password">Password:</label>
+      <input id="password" formControlName="password" type="password" />
+    </section>
+
+    <button (click)="formSubmitted($event)">Login</button>
+  </form>
+</main>
