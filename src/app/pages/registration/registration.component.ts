@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {IRegistrationData} from "../../interfaces/IRegistrationData";
+import {UserService} from "../../services/user/user.service";
 
 @Component({
   selector: 'app-registration',
@@ -13,14 +15,14 @@ export class RegistrationComponent implements OnInit {
     password: new FormControl('', [Validators.minLength(10), Validators.required]),
   });
 
-  constructor() { }
+  constructor(userService: UserService) { }
 
   ngOnInit(): void {
   }
 
   public formSubmitted(e: Event) {
     e.preventDefault();
-    console.log(this.registrationForm)
+    console.log(this.registrationForm.value as IRegistrationData)
   }
 
 }

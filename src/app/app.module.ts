@@ -13,6 +13,7 @@ import { TaskDetailComponent } from './pages/tasks/task-detail/task-detail.compo
 import { BoardListComponent } from './pages/boards/board-list/board-list.component';
 import { BoardDetailComponent } from './pages/boards/board-detail/board-detail.component';
 import { BoardSettingsComponent } from './pages/boards/board-settings/board-settings.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { BoardSettingsComponent } from './pages/boards/board-settings/board-sett
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
