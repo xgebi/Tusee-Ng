@@ -1,5 +1,5 @@
 <main class="central-form">
-  <form (submit)="formSubmitted($event)" [formGroup]="registrationForm">
+  <form *ngIf="!registrationSuccessful" (submit)="formSubmitted($event)" [formGroup]="registrationForm">
 
     <section>
       <label for="email">Email:</label>
@@ -18,4 +18,7 @@
 
     <button (click)="formSubmitted($event)">Register</button>
   </form>
+  <div *ngIf="registrationSuccessful">
+    Registration was successful. Please, continue to <a routerLink="/login">login page</a>.
+  </div>
 </main>

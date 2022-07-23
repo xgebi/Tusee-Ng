@@ -41,5 +41,10 @@ button {
     button {
       background: var(--primary);
     }
+
+    button:active {
+      background: black;
+      color: var(--primary);
+    }
   }
 }

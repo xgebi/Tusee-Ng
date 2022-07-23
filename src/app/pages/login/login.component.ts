@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {UserService} from "../../services/user/user.service";
+import {UserStore} from "../../stores/user.store";
+import {ILoginData} from "../../interfaces/ILoginData";
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(userService: UserService) { }
+  constructor(public userStore: UserStore) { }
 
   ngOnInit(): void {
   }
@@ -22,6 +23,9 @@ export class LoginComponent implements OnInit {
   public formSubmitted(e: Event) {
     e.preventDefault();
     console.log(this.loginForm)
+    if (this.loginForm.status === "VALID") {
+      this.userStore.login(this.loginForm.value as ILoginData)
+    }
   }
 
 }

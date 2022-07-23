@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {IRegistrationData} from "../../interfaces/IRegistrationData";
 import {UserService} from "../../services/user/user.service";
+import {IRegistrationResult} from "../../interfaces/IRegistrationResult";
 
 @Component({
   selector: 'app-registration',
@@ -9,6 +10,8 @@ import {UserService} from "../../services/user/user.service";
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
+  registrationSuccessful = false;
+
   public registrationForm = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
     displayName: new FormControl('', [Validators.required]),
@@ -22,8 +25,15 @@ export class RegistrationComponent implements OnInit {
 
   public async formSubmitted(e: Event) {
     e.preventDefault();
-    console.log("register button clicked")
-    await this.userService.registerUser(this.registrationForm.value as IRegistrationData);
+    console.log(this.registrationForm)
+    if (this.registrationForm.status === "VALID") {
+      (await this.userService.registerUser(this.registrationForm.value as IRegistrationData))
+        .subscribe(result => {
+          if ((result as IRegistrationResult).registrationSuccessful) {
+            this.registrationSuccessful = (result as IRegistrationResult).registrationSuccessful
+          }
+        });
+    }
   }
 
 }

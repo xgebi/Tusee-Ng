@@ -19,7 +19,10 @@ export class UserStore {
   constructor(private userService: UserService) { }
 
   async login(data: ILoginData) {
-    this.userService.loginUser(data)
+    (await this.userService.loginUser(data))
+      .subscribe(result => {
+
+      })
 
   }
 }
