@@ -15,14 +15,15 @@ export class RegistrationComponent implements OnInit {
     password: new FormControl('', [Validators.minLength(10), Validators.required]),
   });
 
-  constructor(userService: UserService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
   }
 
-  public formSubmitted(e: Event) {
+  public async formSubmitted(e: Event) {
     e.preventDefault();
-    console.log(this.registrationForm.value as IRegistrationData)
+    console.log("register button clicked")
+    await this.userService.registerUser(this.registrationForm.value as IRegistrationData);
   }
 
 }

@@ -14,6 +14,7 @@ import { BoardListComponent } from './pages/boards/board-list/board-list.compone
 import { BoardDetailComponent } from './pages/boards/board-detail/board-detail.component';
 import { BoardSettingsComponent } from './pages/boards/board-settings/board-settings.component';
 import {HttpClientModule} from "@angular/common/http";
+import { TotpComponent } from './pages/login/totp/totp.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {HttpClientModule} from "@angular/common/http";
     TaskDetailComponent,
     BoardListComponent,
     BoardDetailComponent,
-    BoardSettingsComponent
+    BoardSettingsComponent,
+    TotpComponent
   ],
   imports: [
     BrowserModule,
