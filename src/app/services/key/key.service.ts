@@ -47,14 +47,24 @@ export class KeyService {
     return password;
   }
 
+  decryptKeys(password: string, keys: IKey[]): IKey[] {
+    return keys.map((key) => this.decryptKey(key, password));
+  }
+
   public encryptKey(key: IKey, password: string): IKey {
+    console.log(key);
     return {
       ...key,
       key: AES.encrypt(key.key, password).toString(),
     };
   }
 
+  encryptSingleKey(key: string, password: string): string {
+    return AES.encrypt(key, password).toString()
+  }
+
   public decryptKey(key: IKey, password: string): IKey {
+    console.log(key, AES.decrypt(key.key, password).toString(CryptoJS.enc.Utf8));
     return {
       ...key,
       key: AES.decrypt(key.key, password).toString(CryptoJS.enc.Utf8),

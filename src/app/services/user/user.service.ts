@@ -10,16 +10,25 @@ import {catchError, map, Observable, of} from "rxjs";
 import {IRegistrationResult} from "../../interfaces/IRegistrationResult";
 import {BoardService} from "../board/board.service";
 import {IError} from "../../interfaces/IError";
+import {ITotpSetupResponse} from "../../interfaces/ITotpSetupResponse";
+import {IKey} from "../../interfaces/IKey";
+import {IBoard} from "../../interfaces/IBoard";
+import {UserStore} from "../../stores/user.store";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient, private keyService: KeyService, private boardService: BoardService) { }
+  constructor(
+    private http: HttpClient,
+    private keyService: KeyService
+  ) { }
 
   public registerUser(data: IRegistrationData) {
-    data.key = this.keyService.generateKey(30);
+    const key = this.keyService.generateKey(30);
+    console.log(key);
+    data.key = this.keyService.encryptSingleKey(key, data.password);
     return this.http.post<IRegistrationResult>('/api/register', data);
   }
 
@@ -44,6 +53,10 @@ export class UserService {
 
   public async changePassword(id: string, data: IChangePasswordData) {
 
+  }
+
+  public skipTotp(data: { skip: boolean; totpCode: string; }) {
+    return this.http.post<ITotpSetupResponse>('/api/totp/setup', data);
   }
 
   private normalizeUserTokenForFe(token: IReceivedUserData): IUserData {

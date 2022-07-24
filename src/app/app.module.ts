@@ -17,6 +17,7 @@ import { BoardSettingsComponent } from './pages/boards/board-settings/board-sett
 import {HttpClientModule} from "@angular/common/http";
 import { TotpComponent } from './pages/login/totp/totp.component';
 import { TotpSetupComponent } from './pages/login/totp-setup/totp-setup.component';
+import {httpInterceptorProviders} from "./interceptors";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,9 @@ import { TotpSetupComponent } from './pages/login/totp-setup/totp-setup.componen
     FormsModule,
     QRCodeModule,
   ],
-  providers: [],
+  providers: [
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

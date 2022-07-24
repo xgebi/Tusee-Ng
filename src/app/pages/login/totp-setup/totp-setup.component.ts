@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {UserStore} from "../../../stores/user.store";
 import {IUserData} from "../../../interfaces/IUserData";
+import {UserService} from "../../../services/user/user.service";
 
 @Component({
   selector: 'app-totp-setup',
@@ -27,6 +28,10 @@ export class TotpSetupComponent implements OnInit {
 
   skip(e: Event) {
     e.preventDefault();
+    this.userStore.setupTotp({
+      skip: true,
+      totpCode: '',
+    })
   }
 
   ngOnInit(): void {
