@@ -2,23 +2,32 @@
   <form *ngIf="!registrationSuccessful" (submit)="formSubmitted($event)" [formGroup]="registrationForm">
     <h1 i18n>Register to use Tusee</h1>
 
-    <section *ngIf="registrationError && registrationError.message === 'userExists'" i18n>
+    <section class="form-error" *ngIf="registrationError && registrationError.message === 'userExists'" i18n>
       {{ registrationError.registeredUserName }} is already registered
     </section>
 
     <section>
       <label for="email">Email:</label>
       <input id="email" formControlName="email" />
+      <p class="form-error" i18n *ngIf="registrationForm.controls.email.touched && registrationForm.controls.email.status === 'INVALID'">
+        Email is not in correct format
+      </p>
     </section>
 
     <section>
       <label for="password">Password:</label>
       <input id="password" formControlName="password" type="password" />
+      <p class="form-error" i18n *ngIf="registrationForm.controls.password.touched && registrationForm.controls.password.status === 'INVALID'">
+        Password needs to have at least 10 characters. Please, use password manager to generate your password. It'll be more secure.
+      </p>
     </section>
 
     <section>
       <label for="displayName">Display name:</label>
       <input id="displayName" formControlName="displayName" />
+      <p class="form-error" i18n *ngIf="registrationForm.controls.displayName.touched && registrationForm.controls.displayName.status === 'INVALID'">
+        Display name needs to be filled.
+      </p>
     </section>
 
     <button (click)="formSubmitted($event)">Register</button>

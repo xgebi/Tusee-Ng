@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="3199888880800574725" datatype="html">
+        <source>Register to use Tusee</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/registration/registration.component.html</context>
+          <context context-type="linenumber">3,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5594123242405833071" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="{{ registrationError.registeredUserName }}"/> is already registered </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/registration/registration.component.html</context>
+          <context context-type="linenumber">6,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="286402403374555737" datatype="html">
+        <source> Email is not in correct format </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/registration/registration.component.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5421680827031290880" datatype="html">
+        <source> Password needs to have at least 10 characters. Please, use password manager to generate your password. It&apos;ll be more secure. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/registration/registration.component.html</context>
+          <context context-type="linenumber">21,22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5907332102132345417" datatype="html">
+        <source> Display name needs to be filled. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/registration/registration.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

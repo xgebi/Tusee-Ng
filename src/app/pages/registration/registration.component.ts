@@ -29,6 +29,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   public async formSubmitted(e: Event) {
+    console.log(this.registrationForm);
     e.preventDefault();
     if (this.registrationForm.status === "VALID") {
       (await this.userService.registerUser(this.registrationForm.value as IRegistrationData))
