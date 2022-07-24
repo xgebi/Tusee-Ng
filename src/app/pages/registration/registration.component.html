@@ -1,5 +1,10 @@
 <main class="central-form">
   <form *ngIf="!registrationSuccessful" (submit)="formSubmitted($event)" [formGroup]="registrationForm">
+    <h1 i18n>Register to use Tusee</h1>
+
+    <section *ngIf="registrationError && registrationError.message === 'userExists'" i18n>
+      {{ registrationError.registeredUserName }} is already registered
+    </section>
 
     <section>
       <label for="email">Email:</label>

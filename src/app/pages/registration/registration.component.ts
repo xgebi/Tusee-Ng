@@ -3,6 +3,7 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {IRegistrationData} from "../../interfaces/IRegistrationData";
 import {UserService} from "../../services/user/user.service";
 import {IRegistrationResult} from "../../interfaces/IRegistrationResult";
+import {catchError, of} from "rxjs";
 
 @Component({
   selector: 'app-registration',
@@ -11,6 +12,10 @@ import {IRegistrationResult} from "../../interfaces/IRegistrationResult";
 })
 export class RegistrationComponent implements OnInit {
   registrationSuccessful = false;
+  registrationError: { message?: string, registeredUserName?: string | null } = {
+    message: "",
+    registeredUserName: "",
+  }
 
   public registrationForm = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
@@ -25,12 +30,23 @@ export class RegistrationComponent implements OnInit {
 
   public async formSubmitted(e: Event) {
     e.preventDefault();
-    console.log(this.registrationForm)
     if (this.registrationForm.status === "VALID") {
       (await this.userService.registerUser(this.registrationForm.value as IRegistrationData))
+        .pipe(
+          catchError(err => {
+            console.log("this is err", err);
+            return of(err.error);
+          })
+        )
         .subscribe(result => {
-          if ((result as IRegistrationResult).registrationSuccessful) {
-            this.registrationSuccessful = (result as IRegistrationResult).registrationSuccessful
+          console.log("Subscribed?")
+          this.registrationSuccessful = (result as IRegistrationResult).registrationSuccessful
+          if (!this.registrationSuccessful) {
+            this.registrationError = {
+              message: (result as IRegistrationResult).error,
+              registeredUserName: this.registrationForm.value.email,
+          }
+            console.log(this.registrationError);
           }
         });
     }
