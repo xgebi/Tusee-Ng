@@ -13,10 +13,10 @@ import {TotpComponent} from "./pages/login/totp/totp.component";
 import {TotpSetupComponent} from "./pages/login/totp-setup/totp-setup.component";
 
 const routes: Routes = [{
-  path: '',
-  pathMatch: 'full',
-  redirectTo: '/home',
-},
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/home',
+  },
   {
     path: 'home',
     component: HomeComponent,
@@ -25,16 +25,22 @@ const routes: Routes = [{
   },
   {
     path: 'boards',
-    component: BoardListComponent,
-    pathMatch: 'full',
-    canActivate: [AuthGuard],
     children: [
       {
-        path: ':id',
-        component: BoardDetailComponent,
+        path: '',
+        component: BoardListComponent,
         pathMatch: 'full',
         canActivate: [AuthGuard],
+      },
+      {
+        path: ':id',
         children: [
+          {
+            path: '',
+            component: BoardDetailComponent,
+            pathMatch: 'full',
+            canActivate: [AuthGuard],
+          },
           {
             path: 'settings',
             component: BoardSettingsComponent,
@@ -47,10 +53,13 @@ const routes: Routes = [{
   },
   {
     path: 'tasks',
-    component: TaskListComponent,
-    pathMatch: 'full',
-    canActivate: [AuthGuard],
     children: [
+      {
+        path: '',
+        component: TaskListComponent,
+        pathMatch: 'full',
+        canActivate: [AuthGuard],
+      },
       {
         path: ':id',
         component: TaskDetailComponent,
@@ -61,8 +70,12 @@ const routes: Routes = [{
   },
   {
     path: 'login',
-    component: LoginComponent,
     children: [
+      {
+        path: '',
+        component: LoginComponent,
+        pathMatch: 'full',
+      },
       {
         path: 'totp',
         component: TotpComponent,

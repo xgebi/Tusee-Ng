@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { QRCodeModule } from 'angularx-qrcode';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { LoginComponent } from './pages/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NavigationComponent } from './components/shared/navigation/navigation.component';
 import { TaskListComponent } from './pages/tasks/task-list/task-list.component';
 import { TaskDetailComponent } from './pages/tasks/task-detail/task-detail.component';
@@ -36,7 +37,9 @@ import { TotpSetupComponent } from './pages/login/totp-setup/totp-setup.componen
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    QRCodeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

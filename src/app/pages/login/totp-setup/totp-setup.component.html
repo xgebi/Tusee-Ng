@@ -1,1 +1,15 @@
-<p>totp-setup works!</p>
+<main class="central-form">
+  <form (submit)="confirmTotp($event)">
+        <qrcode *ngIf="qrCodeData.length > 0" [qrdata]="qrCodeData" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+        <p>Totp secret: {{ user?.totpSecret }}</p>
+        <label for="confirm-code">Confirm code</label>
+        <input
+          type="text"
+          name="confirm-code"
+          id="confirm-code"
+          [(ngModel)]="confirmCode"
+        />
+        <button (click)="confirmTotp($event)">Confirm</button>
+        <button class="grey" (click)="skip($event)">Skip</button>
+      </form>
+</main>

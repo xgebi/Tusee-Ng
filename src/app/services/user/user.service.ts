@@ -9,6 +9,7 @@ import {IReceivedUserData, IUserData} from "../../interfaces/IUserData";
 import {catchError, map, Observable, of} from "rxjs";
 import {IRegistrationResult} from "../../interfaces/IRegistrationResult";
 import {BoardService} from "../board/board.service";
+import {IError} from "../../interfaces/IError";
 
 @Injectable({
   providedIn: 'root'

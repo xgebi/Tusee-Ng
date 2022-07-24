@@ -5,7 +5,7 @@ import {IRegistrationData} from "../interfaces/IRegistrationData";
 import {IError} from "../interfaces/IError";
 import {UserService} from "../services/user/user.service";
 import {ILoginData} from "../interfaces/ILoginData";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import * as dayjs from 'dayjs';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class UserStore {
   user$: Observable<IUserData | null> = this.userSubject.asObservable();
   userError$: Observable<IError> = this.userErrorSubject.asObservable();
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   login(data: ILoginData) {
     this.userService.loginUser(data)
@@ -28,18 +28,16 @@ export class UserStore {
           return of(err.error)
         })
       )
-      .subscribe(async result => {
+      .subscribe(result => {
         if (result.loginSuccessful) {
           this.userSubject.next(result as IUserData);
           if (result?.firstLogin) {
-            await this.router.navigate(["/login/totp-setup"]);
-            return;
+            this.router.navigate(['/login', 'totp-setup']);
+          } else if (result?.usesTotp) {
+            this.router.navigate(["/login", "totp"]);
+          } else {
+            this.router.navigate(["/home"])
           }
-          if (result?.usesTotp) {
-            await this.router.navigate(["/login/totp"]);
-            return;
-          }
-          await this.router.navigate(["/home"])
         } else {
           this.userErrorSubject.next({hasOccurred: true, message: result.error})
         }

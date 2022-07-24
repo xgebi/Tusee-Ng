@@ -33,7 +33,8 @@
             "scripts": [],
             "allowedCommonJsDependencies": [
               "dayjs",
-              "crypto-js"
+              "crypto-js",
+              "@cordobo/qrcode"
             ]
           },
           "configurations": {
