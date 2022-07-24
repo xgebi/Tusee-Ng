@@ -9,19 +9,27 @@ import {
   UrlSegment,
   UrlTree
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import {map, Observable} from 'rxjs';
+import {UserStore} from "./stores/user.store";
+import {IUserData} from "./interfaces/IUserData";
+import * as dayjs from 'dayjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userStore: UserStore) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true
-    // this.router.navigate(['/login']);
-    // return false;
+    console.log("guard?");
+    return this.userStore.user$
+      .pipe(
+        map(userData => {
+          console.log(userData?.password, dayjs(), userData?.automaticLogoutTime, userData?.automaticLogoutTime.isAfter(dayjs()))
+          return !!userData?.password && userData.automaticLogoutTime.isAfter(dayjs())
+        })
+      )
   }
 }

@@ -3,7 +3,7 @@
     <h1 i18n>Register to use Tusee</h1>
 
     <section class="form-error" *ngIf="registrationError && registrationError.message === 'userExists'" i18n>
-      {{ registrationError.registeredUserName }} is already registered
+      {{ registrationError.registeredEmail }} is already registered
     </section>
 
     <section>

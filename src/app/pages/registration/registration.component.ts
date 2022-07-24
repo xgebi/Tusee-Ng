@@ -12,9 +12,9 @@ import {catchError, of} from "rxjs";
 })
 export class RegistrationComponent implements OnInit {
   registrationSuccessful = false;
-  registrationError: { message?: string, registeredUserName?: string | null } = {
+  registrationError: { message?: string, registeredEmail?: string | null } = {
     message: "",
-    registeredUserName: "",
+    registeredEmail: "",
   }
 
   public registrationForm = new FormGroup({
@@ -32,7 +32,7 @@ export class RegistrationComponent implements OnInit {
     console.log(this.registrationForm);
     e.preventDefault();
     if (this.registrationForm.status === "VALID") {
-      (await this.userService.registerUser(this.registrationForm.value as IRegistrationData))
+      this.userService.registerUser(this.registrationForm.value as IRegistrationData)
         .pipe(
           catchError(err => {
             console.log("this is err", err);
@@ -45,7 +45,7 @@ export class RegistrationComponent implements OnInit {
           if (!this.registrationSuccessful) {
             this.registrationError = {
               message: (result as IRegistrationResult).error,
-              registeredUserName: this.registrationForm.value.email,
+              registeredEmail: this.registrationForm.value.email,
           }
             console.log(this.registrationError);
           }

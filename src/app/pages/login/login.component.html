@@ -1,5 +1,12 @@
 <main class="central-form">
   <form (submit)="formSubmitted($event)" [formGroup]="loginForm">
+    <h1 i18n>
+      Login to Tusee
+    </h1>
+
+    <section class="form-error" *ngIf="loginError.hasOccurred && loginError.message === 'credentials'" i18n>
+      Either your email is not registered or your password is not correct.
+    </section>
 
     <section>
       <label for="email">Email:</label>
