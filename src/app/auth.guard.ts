@@ -23,13 +23,10 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log("guard?");
-    return this.userStore.user$
-      .pipe(
-        map(userData => {
-          console.log(userData?.password, dayjs(), userData?.automaticLogoutTime, userData?.automaticLogoutTime.isAfter(dayjs()))
-          return !!userData?.password && userData.automaticLogoutTime.isAfter(dayjs())
-        })
-      )
+    if (this.userStore.updateAutomaticLogOutTime()) {
+      return true;
+    }
+    this.router.navigate(['/login'])
+    return false;
   }
 }

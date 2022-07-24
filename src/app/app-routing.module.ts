@@ -9,6 +9,8 @@ import {BoardDetailComponent} from "./pages/boards/board-detail/board-detail.com
 import {BoardSettingsComponent} from "./pages/boards/board-settings/board-settings.component";
 import {TaskListComponent} from "./pages/tasks/task-list/task-list.component";
 import {TaskDetailComponent} from "./pages/tasks/task-detail/task-detail.component";
+import {TotpComponent} from "./pages/login/totp/totp.component";
+import {TotpSetupComponent} from "./pages/login/totp-setup/totp-setup.component";
 
 const routes: Routes = [{
   path: '',
@@ -60,6 +62,20 @@ const routes: Routes = [{
   {
     path: 'login',
     component: LoginComponent,
+    children: [
+      {
+        path: 'totp',
+        component: TotpComponent,
+        pathMatch: 'full',
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'totp-setup',
+        component: TotpSetupComponent,
+        pathMatch: 'full',
+        canActivate: [AuthGuard]
+      },
+    ]
   },
   {
     path: 'registration',
