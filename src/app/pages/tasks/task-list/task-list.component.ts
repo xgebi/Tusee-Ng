@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ITask} from "../../../interfaces/ITask";
 
 @Component({
   selector: 'task-list',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
+  taskItems: ITask[] = []
 
   constructor() { }
 

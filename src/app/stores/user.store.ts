@@ -10,6 +10,8 @@ import * as dayjs from 'dayjs';
 import {BoardService} from "../services/board/board.service";
 import {KeyService} from "../services/key/key.service";
 import {ITotpSetupResponse} from "../interfaces/ITotpSetupResponse";
+import {NgxIndexedDBService} from "ngx-indexed-db";
+import {IStoredData} from "../interfaces/IStoredData";
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +28,8 @@ export class UserStore {
     private userService: UserService,
     private router: Router,
     private boardService: BoardService,
-    private keyService: KeyService
+    private keyService: KeyService,
+    private dbService: NgxIndexedDBService
   ) { }
 
   login(data: ILoginData) {
@@ -43,14 +46,16 @@ export class UserStore {
         })
       )
       .subscribe(result => {
-        if (result.loginSuccessful) {
-          this.userSubject.next(result as IUserData);
+        if (result && result.loginSuccessful) {
           if (result?.firstLogin) {
+            this.userSubject.next(result as IUserData);
             this.router.navigate(['/login', 'totp-setup']);
           } else if (result?.usesTotp) {
+            this.userSubject.next(result as IUserData);
             this.router.navigate(["/login", "totp"]);
           } else {
-            console.log(result);
+            this.userSubject.next(result as IUserData);
+            this.setIndexedDbData(result);
             this.router.navigate(["/home"]);
           }
         } else {
@@ -59,9 +64,61 @@ export class UserStore {
       });
   }
 
+  relogin(data: IStoredData) {
+    this.userSubject.next({
+      email: "",
+      automaticLogoutTime: data.automaticLogoutTime,
+      boards: [],
+      displayName: "",
+      firstLogin: false,
+      keys: data.keys,
+      loginSuccessful: false,
+      password: "",
+      totpSecret: "",
+      userUuid: "",
+      usesTotp: false,
+      token: data.token })
+    this.userService.reloginUser()
+      .pipe(
+        map(res => {
+          res.keys = data.keys;
+          res.boards = this.boardService.decryptBoards(data.keys, res.boards);
+          return res;
+        }),
+        catchError(err => {
+          return of(err.error)
+        })
+      )
+      .subscribe(result => {
+        if (result && result.loginSuccessful) {
+          if (result?.firstLogin) {
+            this.userSubject.next(result as IUserData);
+            this.router.navigate(['/login', 'totp-setup']);
+          } else {
+            this.userSubject.next(result as IUserData);
+            this.setIndexedDbData(result);
+            this.router.navigate(["/home"]);
+          }
+        } else {
+          this.userErrorSubject.next({hasOccurred: true, message: result.error})
+        }
+      });
+  }
+
+  private setIndexedDbData(result: IUserData) {
+    // this.dbService.deleteObjectStore('persistent');
+    this.dbService.add('persistent', {
+      token: result.token,
+      keys: result.keys,
+      automaticLogoutTime: result.automaticLogoutTime.toISOString()
+    }).subscribe((key) => {
+      console.log('key: ', key);
+    });
+  }
+
   updateAutomaticLogOutTime(): boolean {
     const userData = this.userSubject.value;
-    if (!!userData?.password && userData?.automaticLogoutTime.isAfter(dayjs())) {
+    if (userData && userData.keys.length > 0 && userData?.automaticLogoutTime.isAfter(dayjs())) {
       userData.automaticLogoutTime = dayjs().add(30, 'minutes');
       this.userSubject.next(userData as IUserData);
       return true;
@@ -106,6 +163,7 @@ export class UserStore {
           this.userSubject.next(userData as IUserData);
           console.log(this.userSubject.value);
           if (result.totpVerified) {
+            this.setIndexedDbData(userData);
             this.router.navigate(["/home"]);
           }
         }

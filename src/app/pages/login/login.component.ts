@@ -3,6 +3,9 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserStore} from "../../stores/user.store";
 import {ILoginData} from "../../interfaces/ILoginData";
 import {IError} from "../../interfaces/IError";
+import {NgxIndexedDBService} from "ngx-indexed-db";
+import * as dayjs from "dayjs";
+import {IStoredData} from "../../interfaces/IStoredData";
 
 @Component({
   selector: 'app-login',
@@ -18,13 +21,28 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(public userStore: UserStore) {
+  constructor(public userStore: UserStore,
+              private dbService: NgxIndexedDBService) {
     this.userStore.userError$.subscribe(error => {
       this.loginError = error;
     })
   }
 
   ngOnInit(): void {
+    console.log('dayjs in onInit', dayjs())
+    let first = true;
+    const day = dayjs;
+    this.dbService.getAll('persistent')
+      .subscribe((data) => {
+        for (const entry of (data as IStoredData[])) {
+          if (day(entry.automaticLogoutTime).isAfter(dayjs()) && first) {
+            first = false;
+            this.userStore.relogin(entry);
+          } else if (entry.id) {
+            this.dbService.deleteByKey('persistent', entry.id)
+          }
+        }
+      })
   }
 
   public formSubmitted(e: Event) {

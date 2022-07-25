@@ -1,1 +1,6 @@
-<p>task-list works!</p>
+<main class="page">
+  <app-navigation></app-navigation>
+  <section class="task-list">
+    <app-task-list-item *ngFor="let item of taskItems" [task]="item"></app-task-list-item>
+  </section>
+</main>

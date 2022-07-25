@@ -27,7 +27,6 @@ export class UserService {
 
   public registerUser(data: IRegistrationData) {
     const key = this.keyService.generateKey(30);
-    console.log(key);
     data.key = this.keyService.encryptSingleKey(key, data.password);
     return this.http.post<IRegistrationResult>('/api/register', data);
   }
@@ -42,6 +41,20 @@ export class UserService {
         map(result => {
           result.automatic_logout_time = dayjs().add(30, "minutes");
           result.password = data.password;
+          return this.normalizeUserTokenForFe(result);
+        })
+      );
+  }
+
+  public reloginUser(): Observable<IUserData> {
+    return this.http.get<IReceivedUserData>('/api/relogin')
+      .pipe(
+        catchError(err => {
+          console.log('Error relogging in');
+          return of(err.error);
+        }),
+        map(result => {
+          result.automatic_logout_time = dayjs().add(30, "minutes");
           return this.normalizeUserTokenForFe(result);
         })
       );

@@ -18,6 +18,9 @@ import {HttpClientModule} from "@angular/common/http";
 import { TotpComponent } from './pages/login/totp/totp.component';
 import { TotpSetupComponent } from './pages/login/totp-setup/totp-setup.component';
 import {httpInterceptorProviders} from "./interceptors";
+import { TaskListItemComponent } from './components/tasks/task-list-item/task-list-item.component';
+import { NgxIndexedDBModule } from 'ngx-indexed-db';
+import {dbConfig} from "./app-db-config";
 
 @NgModule({
   declarations: [
@@ -32,7 +35,8 @@ import {httpInterceptorProviders} from "./interceptors";
     BoardDetailComponent,
     BoardSettingsComponent,
     TotpComponent,
-    TotpSetupComponent
+    TotpSetupComponent,
+    TaskListItemComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +45,7 @@ import {httpInterceptorProviders} from "./interceptors";
     HttpClientModule,
     FormsModule,
     QRCodeModule,
+    NgxIndexedDBModule.forRoot(dbConfig)
   ],
   providers: [
     httpInterceptorProviders

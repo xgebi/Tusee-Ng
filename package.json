@@ -22,6 +22,7 @@
     "angularx-qrcode": "^14.0.0",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.4",
+    "ngx-indexed-db": "^11.0.2",
     "qrcode": "^1.5.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
