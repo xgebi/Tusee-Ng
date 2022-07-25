@@ -29,25 +29,21 @@ export class RegistrationComponent implements OnInit {
   }
 
   public async formSubmitted(e: Event) {
-    console.log(this.registrationForm);
     e.preventDefault();
     if (this.registrationForm.status === "VALID") {
       this.userService.registerUser(this.registrationForm.value as IRegistrationData)
         .pipe(
           catchError(err => {
-            console.log("this is err", err);
             return of(err.error);
           })
         )
         .subscribe(result => {
-          console.log("Subscribed?")
           this.registrationSuccessful = (result as IRegistrationResult).registrationSuccessful
           if (!this.registrationSuccessful) {
             this.registrationError = {
               message: (result as IRegistrationResult).error,
               registeredEmail: this.registrationForm.value.email,
           }
-            console.log(this.registrationError);
           }
         });
     }

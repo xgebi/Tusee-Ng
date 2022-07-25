@@ -52,7 +52,6 @@ export class KeyService {
   }
 
   public encryptKey(key: IKey, password: string): IKey {
-    console.log(key);
     return {
       ...key,
       key: AES.encrypt(key.key, password).toString(),

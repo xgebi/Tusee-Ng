@@ -29,18 +29,23 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('dayjs in onInit', dayjs())
     let first = true;
+    let chosenEntry: IStoredData | null = null;
     const day = dayjs;
     this.dbService.getAll('persistent')
       .subscribe((data) => {
         for (const entry of (data as IStoredData[])) {
+          debugger;
           if (day(entry.automaticLogoutTime).isAfter(dayjs()) && first) {
             first = false;
-            this.userStore.relogin(entry);
+            chosenEntry = entry;
           } else if (entry.id) {
-            this.dbService.deleteByKey('persistent', entry.id)
+            this.dbService.deleteByKey('persistent', entry.id).subscribe();
           }
+        }
+        if (chosenEntry && chosenEntry.id) {
+          this.dbService.deleteByKey('persistent', chosenEntry.id).subscribe();
+          this.userStore.relogin(chosenEntry);
         }
       })
   }

@@ -9,7 +9,6 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private userStore: UserStore) {
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(this.userStore.getToken());
     const request = req.clone({
       setHeaders: {
         'Content-Type': 'application/json; charset=utf-8',

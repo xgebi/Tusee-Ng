@@ -1,1 +1,17 @@
-<p>task-detail works!</p>
+<main class="page">
+  <app-navigation></app-navigation>
+  <h1 *ngIf="(id | async)?.toLowerCase() === 'new'" i18n>
+    Create new task
+  </h1>
+  <h1 *ngIf="(id | async)?.toLowerCase() !== 'new'" i18n>
+    Edit task
+  </h1>
+  <form [formControl]="taskFormControl">
+
+    <section>
+      <label for="title" i18n>Title</label>
+      <input type="text" name="title" id="title" />
+    </section>
+
+  </form>
+</main>

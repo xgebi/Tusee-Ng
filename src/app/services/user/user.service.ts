@@ -35,7 +35,7 @@ export class UserService {
     return this.http.post<IReceivedUserData>('/api/login', data)
       .pipe(
         catchError(err => {
-          console.log('Error');
+          console.error('Failed to login');
           return of(err.error);
         }),
         map(result => {
@@ -50,7 +50,7 @@ export class UserService {
     return this.http.get<IReceivedUserData>('/api/relogin')
       .pipe(
         catchError(err => {
-          console.log('Error relogging in');
+          console.error('Error relogging in');
           return of(err.error);
         }),
         map(result => {

@@ -1,7 +1,10 @@
 <nav>
   <ul>
-    <li><a routerLink="/home">Home</a></li>
-    <li><a routerLink="/tasks">Tasks</a></li>
-    <li><a routerLink="/boards">Boards</a></li>
+    <li><a routerLink="/home" [routerLinkActive]="['active']">Home</a></li>
+    <li><a routerLink="/tasks" [routerLinkActive]="['active']">Tasks</a></li>
+    <li><a routerLink="/boards" [routerLinkActive]="['active']">Boards</a></li>
+  </ul>
+  <ul>
+    <li><a routerLink="/tasks/new">Create task</a></li>
   </ul>
 </nav>

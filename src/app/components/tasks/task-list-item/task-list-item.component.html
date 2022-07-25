@@ -1,1 +1,26 @@
-<p>task-list-item works!</p>
+<ng-container *ngIf="task">
+  <article>
+    <h2>{{ task.title }}</h2>
+    <table>
+      <tbody>
+      <tr *ngIf="task.startTime">
+        <th scope="row" i18n>Start date</th>
+        <td>{{ task.startTime.toLocaleDateString() }}</td>
+      </tr>
+      <tr *ngIf="task.deadline">
+        <th scope="row" i18n>Finish by date</th>
+        <td>{{ task.deadline.toLocaleDateString() }}</td>
+      </tr>
+      <tr *ngIf="task.updated">
+        <th scope="row" i18n>Updated</th>
+        <td>{{ task.updated.toLocaleDateString() }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </article>
+</ng-container>
+<ng-container *ngIf="!task">
+  <article i18n>
+    Task has no data
+  </article>
+</ng-container>
