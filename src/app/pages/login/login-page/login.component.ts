@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {UserStore} from "../../stores/user.store";
-import {ILoginData} from "../../interfaces/ILoginData";
-import {IError} from "../../interfaces/IError";
+import {UserStore} from "../../../stores/user.store";
+import {ILoginData} from "../../../interfaces/ILoginData";
+import {IError} from "../../../interfaces/IError";
 import {NgxIndexedDBService} from "ngx-indexed-db";
 import * as dayjs from "dayjs";
-import {IStoredData} from "../../interfaces/IStoredData";
+import {IStoredData} from "../../../interfaces/IStoredData";
 
 @Component({
   selector: 'app-login',
