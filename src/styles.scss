@@ -67,3 +67,32 @@ button {
   padding: .5rem .25rem;
   border-radius: .125rem;
 }
+
+.page {
+	display: grid;
+
+	&.single-column {
+		grid-template-columns: 1fr 22rem 1fr;
+		grid-template-rows: auto auto;
+
+		.navigation {
+			grid-column: 1 / 4;
+		}
+
+		h1 {
+			grid-column: 2 / 3;
+		}
+
+		form  {
+			grid-column: 2 / 3;
+		}
+	}
+
+	.navigation {
+		grid-row: 1 / 2;
+	}
+}
+
+app-navigation {
+	display: contents;
+}

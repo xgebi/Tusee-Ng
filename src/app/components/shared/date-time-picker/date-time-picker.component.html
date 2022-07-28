@@ -1,1 +1,5 @@
-<p>date-time-picker works!</p>
+<section>
+	<div>{{ label }}</div>
+	<input type="date" [valueAsDate]="pickedDateTime?.toDate()" />
+	<input type="time" [valueAsDate]="pickedDateTime?.toDate()" />
+</section>

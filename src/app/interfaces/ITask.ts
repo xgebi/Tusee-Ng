@@ -1,27 +1,29 @@
+import * as dayjs from 'dayjs';
+
 export interface IReceivedTask {
   title: string;
   description: string;
-  deadline?: Date;
-  start_time?: Date;
+  deadline?: Date | null;
+  start_time?: Date | null;
   task_uuid?: string;
   creator?: string;
   board?: string;
-  updated?: Date;
-  created?: Date;
+  updated?: Date | null;
+  created?: Date | null;
   task_status: string;
-  done_date: Date;
+  done_date: Date | null;
 }
 
 export interface ITask {
   title: string;
   description: string;
-  deadline?: Date;
-  startTime?: Date;
+  deadline?: dayjs.Dayjs | null;
+  startTime?: dayjs.Dayjs | null;
   taskUuid?: string;
   creator?: string;
   board?: string;
-  updated?: Date;
-  created?: Date;
+  updated?: dayjs.Dayjs | null;
+  created?: dayjs.Dayjs | null;
   taskStatus: string;
-  doneDate: Date;
+  doneDate: dayjs.Dayjs | null;
 }

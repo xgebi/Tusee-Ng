@@ -12,6 +12,7 @@ import {KeyService} from "../services/key/key.service";
 import {ITotpSetupResponse} from "../interfaces/ITotpSetupResponse";
 import {NgxIndexedDBService} from "ngx-indexed-db";
 import {IStoredData} from "../interfaces/IStoredData";
+import {IKey} from "../interfaces/IKey";
 
 @Injectable({
   providedIn: 'root'
@@ -139,6 +140,10 @@ export class UserStore {
     }
     return ""
   }
+
+	getKeys(): IKey[] {
+		return <IKey[]>this.userSubject.getValue()?.keys;
+	}
 
   setupTotp(data: { skip: boolean; totpCode: string; }) {
     const userData = this.userSubject.value

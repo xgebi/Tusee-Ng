@@ -5,11 +5,11 @@
       <tbody>
       <tr *ngIf="task.startTime">
         <th scope="row" i18n>Start date</th>
-        <td>{{ task.startTime.toLocaleDateString() }}</td>
+        <td>{{ task.startTime.toString() }}</td>
       </tr>
       <tr *ngIf="task.deadline">
         <th scope="row" i18n>Finish by date</th>
-        <td>{{ task.deadline.toLocaleDateString() }}</td>
+        <td>{{ task.deadline.toString() }}</td>
       </tr>
       <tr *ngIf="task.updated">
         <th scope="row" i18n>Updated</th>

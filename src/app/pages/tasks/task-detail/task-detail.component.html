@@ -1,4 +1,4 @@
-<main class="page" xmlns="http://www.w3.org/1999/html">
+<main class="page single-column" xmlns="http://www.w3.org/1999/html">
   <app-navigation></app-navigation>
   <h1 *ngIf="(id | async)?.toLowerCase() === 'new'" i18n>
     Create new task
@@ -14,30 +14,24 @@
     </section>
 
 		<section>
-      <label for="description" i18n>Title</label>
+      <label for="description" i18n>Description</label>
       <textarea name="description" id="description" formControlName="description"></textarea>
     </section>
 
-		<section>
-      <label for="start-time" i18n>Title</label>
-      <textarea name="startTime" id="start-time" formControlName="startTime"></textarea>
-    </section>
+		<app-date-time-picker formControlName="startTime" [label]="'Start date'" i18n></app-date-time-picker>
+
+		<app-date-time-picker formControlName="deadline" [label]="'Finish by'" i18n></app-date-time-picker>
 
 		<section>
-      <label for="deadline" i18n>Title</label>
-      <textarea name="deadline" id="deadline" formControlName="deadline"></textarea>
-    </section>
-
-		<section>
-      <label for="task-status" i18n>Title</label>
+      <label for="task-status" i18n>Status</label>
       <textarea name="taskStatus" id="task-status" formControlName="taskStatus"></textarea>
     </section>
 
 		<section>
-      <label for="board" i18n>Title</label>
+      <label for="board" i18n>Board</label>
       <textarea name="board" id="board" formControlName="board"></textarea>
     </section>
 
-		<button>Save</button>
+		<button (click)="saveTask($event)">Save</button>
   </form>
 </main>
