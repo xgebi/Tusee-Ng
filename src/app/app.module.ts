@@ -24,6 +24,7 @@ import {dbConfig} from "./app-db-config";
 import { EventsListComponent } from './pages/events-list/events-list.component';
 import { EventDetailComponent } from './pages/event-detail/event-detail.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { DateTimePickerComponent } from './components/shared/date-time-picker/date-time-picker.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
     TaskListItemComponent,
     EventsListComponent,
     EventDetailComponent,
-    ProfileComponent
+    ProfileComponent,
+    DateTimePickerComponent
   ],
   imports: [
     BrowserModule,
