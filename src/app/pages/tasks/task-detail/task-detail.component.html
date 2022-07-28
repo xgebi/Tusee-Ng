@@ -1,4 +1,4 @@
-<main class="page">
+<main class="page" xmlns="http://www.w3.org/1999/html">
   <app-navigation></app-navigation>
   <h1 *ngIf="(id | async)?.toLowerCase() === 'new'" i18n>
     Create new task
@@ -6,12 +6,38 @@
   <h1 *ngIf="(id | async)?.toLowerCase() !== 'new'" i18n>
     Edit task
   </h1>
-  <form [formControl]="taskFormControl">
+  <form [formGroup]="taskFormGroup">
 
     <section>
       <label for="title" i18n>Title</label>
-      <input type="text" name="title" id="title" />
+      <input type="text" name="title" id="title" formControlName="title" />
     </section>
 
+		<section>
+      <label for="description" i18n>Title</label>
+      <textarea name="description" id="description" formControlName="description"></textarea>
+    </section>
+
+		<section>
+      <label for="start-time" i18n>Title</label>
+      <textarea name="startTime" id="start-time" formControlName="startTime"></textarea>
+    </section>
+
+		<section>
+      <label for="deadline" i18n>Title</label>
+      <textarea name="deadline" id="deadline" formControlName="deadline"></textarea>
+    </section>
+
+		<section>
+      <label for="task-status" i18n>Title</label>
+      <textarea name="taskStatus" id="task-status" formControlName="taskStatus"></textarea>
+    </section>
+
+		<section>
+      <label for="board" i18n>Title</label>
+      <textarea name="board" id="board" formControlName="board"></textarea>
+    </section>
+
+		<button>Save</button>
   </form>
 </main>

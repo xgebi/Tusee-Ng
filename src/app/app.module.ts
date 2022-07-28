@@ -21,6 +21,9 @@ import {httpInterceptorProviders} from "./interceptors";
 import { TaskListItemComponent } from './components/tasks/task-list-item/task-list-item.component';
 import { NgxIndexedDBModule } from 'ngx-indexed-db';
 import {dbConfig} from "./app-db-config";
+import { EventsListComponent } from './pages/events-list/events-list.component';
+import { EventDetailComponent } from './pages/event-detail/event-detail.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import {dbConfig} from "./app-db-config";
     BoardSettingsComponent,
     TotpComponent,
     TotpSetupComponent,
-    TaskListItemComponent
+    TaskListItemComponent,
+    EventsListComponent,
+    EventDetailComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

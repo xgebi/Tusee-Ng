@@ -11,6 +11,9 @@ import {TaskListComponent} from "./pages/tasks/task-list/task-list.component";
 import {TaskDetailComponent} from "./pages/tasks/task-detail/task-detail.component";
 import {TotpComponent} from "./pages/login/totp/totp.component";
 import {TotpSetupComponent} from "./pages/login/totp-setup/totp-setup.component";
+import {EventsListComponent} from "./pages/events/events-list/events-list.component";
+import {EventDetailComponent} from "./pages/events/event-detail/event-detail.component";
+import {ProfileComponent} from "./pages/profile/profile.component";
 
 const routes: Routes = [{
     path: '',
@@ -20,6 +23,12 @@ const routes: Routes = [{
   {
     path: 'home',
     component: HomeComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard]
   },
@@ -63,6 +72,23 @@ const routes: Routes = [{
       {
         path: ':id',
         component: TaskDetailComponent,
+        pathMatch: 'full',
+        canActivate: [AuthGuard]
+      },
+    ]
+  },
+  {
+    path: 'events',
+    children: [
+      {
+        path: '',
+        component: EventsListComponent,
+        pathMatch: 'full',
+        canActivate: [AuthGuard],
+      },
+      {
+        path: ':id',
+        component: EventDetailComponent,
         pathMatch: 'full',
         canActivate: [AuthGuard]
       },
